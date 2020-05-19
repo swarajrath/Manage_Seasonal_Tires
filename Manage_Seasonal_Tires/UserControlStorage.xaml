@@ -1,0 +1,167 @@
+﻿<UserControl x:Class="Manage_Seasonal_Tires.UserControlStorage"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:local="clr-namespace:Manage_Seasonal_Tires" xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
+             mc:Ignorable="d" 
+             xmlns:Resx="clr-namespace:Manage_Seasonal_Tires.Properties"
+             Loaded="UserControl_Loaded"
+             d:DesignHeight="516.6" Width="1100">
+
+    <Grid Margin="0,0,0,-0.2" Width="900">
+        <materialDesign:TransitioningContent x:Name="TrainsitionigContentSlide" OpeningEffect="{materialDesign:TransitionEffect SlideInFromLeft, Duration=0:0:0.8}">
+            <Grid>
+
+                <StackPanel VerticalAlignment="Top" Height="56" Orientation="Horizontal" HorizontalAlignment="Right" Margin="-91,0,-1,0" RenderTransformOrigin="0.5,0.5" Width="992">
+                    <TextBox Name="Lbx_customerFilter" Style="{StaticResource MaterialDesignOutlinedTextFieldTextBox}" Height="40" AcceptsReturn="True" TextWrapping="Wrap"  materialDesign:HintAssist.Hint="{x:Static Resx:Resources.filter}" Width="278" TextChanged="Lbx_customerFilter_TextChanged" Margin="30,12,0,4"/>
+
+                    <TextBlock Width="30" Name="Tbx_filtercount" VerticalAlignment="Center" Text="{Binding ElementName=Lbx_Customer, Path=Items.Count}" Margin="10,19,0,10" Height="27" FontSize="20"/>
+
+
+
+                    <StackPanel Height="30" Margin="130,13,0,13" Width="309">
+                        <TextBlock Style="{StaticResource ResourceKey=TextBlock_Master3}" Text="{x:Static Resx:Resources.cdetails}" Margin="0,0,20.8,0" />
+                    </StackPanel>
+
+                </StackPanel>
+                <StackPanel Margin="-67,60,0,-0.2" HorizontalAlignment="Left" Width="362">
+                    <ListBox SelectionChanged="Lbx_Customer_SelectionChanged" 
+                             x:Name="Lbx_Customer" Height="398" Margin="10,10,-0.4,0">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock>
+                                    <Run Text="{Binding first_name}" FontFamily="Segoe UI"/>
+                                    <Run Text=" "/>
+                                    <Run Text="{Binding last_name}" FontFamily="Segoe UI" FontWeight="Bold"/>
+                                    <LineBreak/>
+                                    <Run Text="{Binding date_of_birth, StringFormat=d}" FontFamily="Segoe UI"/></TextBlock>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                    <StackPanel Orientation="Horizontal" Margin="10,15,-0.4,0">
+                        <Button x:Name="Btn_Add_Customer" Click="Button_AddCustomer" Content="{x:Static Resx:Resources.btn_addcust}" VerticalAlignment="Bottom" Margin="0,0,50,0" 
+                        ToolTip="{x:Static Resx:Resources.tooltip_Btn_addCust}"/>
+                                
+                        <Button Name="Btn_DeleteCustomer" Click="Button_DeleteCustomer" Content="{x:Static Resx:Resources.btn_deleteCust}" VerticalAlignment="Bottom" Margin="0,0,0,0" 
+                        ToolTip="{x:Static Resx:Resources.tooltip_Btn_deleteCust}"/>
+                    </StackPanel>
+                    
+                </StackPanel>
+                <StackPanel Margin="389,40,-27,-0.2" DataContext="{Binding ElementName=Lbx_Customer, Path=SelectedItem}">
+                    <StackPanel Height="148" Margin="0,0,-0.6,0">
+                        <StackPanel Height="30" Orientation="Horizontal">
+                            <TextBlock Text="{Binding name}" FontSize="14" FontWeight="Bold" Margin="0,7,0,0.4" Width="177" FontFamily="Georgia"/>
+                        </StackPanel>
+                        <StackPanel Height="30" Orientation="Horizontal">
+                            <TextBlock Text="{x:Static Resx:Resources.fname}" Margin="0,7,0,0" Width="100"/>
+                            <TextBox Text="{Binding first_name}" FontSize="11" Margin="58,0,0,5.4" Width="150"/>
+                        </StackPanel>
+                        <StackPanel Height="30" Orientation="Horizontal">
+                            <TextBlock Text="{x:Static Resx:Resources.lname}" Margin="0,7,0,0" Width="100"/>
+                            <TextBox Text="{Binding last_name}" FontSize="11" Margin="59,0,0,5.4" Width="152"/>
+                        </StackPanel>
+                        <StackPanel Height="30" Orientation="Horizontal">
+                            <TextBlock Text="{x:Static Resx:Resources.address}" Margin="0,7,0,0" Width="100"/>
+                            <TextBox Text="{Binding address}" FontSize="11" Margin="60,0,0,5.4" Width="150"/>
+                        </StackPanel>
+                        <StackPanel Height="30" Orientation="Horizontal">
+                            <TextBlock Text="{x:Static Resx:Resources.dob}" Margin="0,7,0,0" Width="100"/>
+                            <DatePicker 
+                              SelectedDate="{Binding date_of_birth}" FontSize="11" Margin="60,0,0,5.4" Width="150"/>
+                        </StackPanel>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Height="313" Margin="0,20,0,0">
+                        <ListBox Name="Lbx_Cars" Margin="0,40,0,88.8" Width="153" BorderThickness="3" BorderBrush="Gray">
+                            <ListBox.ItemTemplate>
+                                <DataTemplate>
+                                    <TextBlock>
+                                    <Run Text="{Binding CarModel}"/>
+                                    </TextBlock>
+                                </DataTemplate>
+                            </ListBox.ItemTemplate>
+                        </ListBox>
+                        <StackPanel  Width="260" Margin="20,10,0,-0.2" DataContext="{Binding SelectedItem, ElementName=Lbx_Cars}">
+                            <StackPanel Height="228">
+                                <Grid Height="231">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition/>
+                                        <RowDefinition/>
+                                        <RowDefinition/>
+                                        <RowDefinition/>
+                                        <RowDefinition/>
+                                        <RowDefinition/>
+                                        <RowDefinition/>
+                                    </Grid.RowDefinitions>
+                                    <StackPanel Grid.Row="0">
+                                        <TextBlock Style="{StaticResource ResourceKey=TextBlock_Master3}" Text="{x:Static Resx:Resources.vdetails}" />
+                                    </StackPanel>
+                                    <StackPanel Grid.Row="1" Orientation="Horizontal">
+                                        <TextBlock Name="Tbx_vmodel" Text="{x:Static Resx:Resources.vmodel}" Margin="0,7,0,0" Width="100"/>
+                                        <TextBox Text="{Binding CarModel}" Margin="25,0,0,-0.4" Width="148"/>
+                                    </StackPanel>
+                                    <StackPanel Grid.Row="2" Orientation="Horizontal">
+                                        <TextBlock Text="{x:Static Resx:Resources.vnumber}" Margin="0,7,0,0" Width="100"/>
+                                        <TextBox Text="{Binding VehicleNumber}" Margin="25,0,0,-0.4" Width="148"/>
+                                    </StackPanel>
+                                    <StackPanel Grid.Row="3" Orientation="Horizontal">
+                                        <TextBlock Text="{x:Static Resx:Resources.tcategory}" Margin="0,7,0,0" Width="100"/>
+                                        <ComboBox Name="CbX_tire_Category" Width="131" Margin="25,3,0,1.8" SelectedItem="{Binding tireCategory}">
+                                            <!--<ComboBoxItem Content="All Season"/>
+                                            <ComboBoxItem Content="Winter"/>
+                                            <ComboBoxItem Content="Summer"/>
+                                            <ComboBoxItem Content="Performance"/>
+                                            <ComboBoxItem Content="Touring"/>
+                                            <ComboBoxItem Content="Light Truck"/>-->
+                                        </ComboBox>
+                                    </StackPanel>
+                                    <StackPanel Grid.Row="4" Orientation="Horizontal">
+                                        <TextBlock Text="{x:Static Resx:Resources.tnumber}" Margin="0,7,0,0" Width="100"/>
+                                        <TextBox Text="{Binding numberofTires}" Margin="24,0,0,-0.4" Width="148"/>
+                                    </StackPanel>
+                                    <StackPanel Grid.Row="5" Orientation="Horizontal">
+                                        <TextBlock Text="{x:Static Resx:Resources.storagelocation}" Margin="0,7,0,0" Width="100"/>
+                                        <TextBox Text="{Binding storage}" Margin="23,0,0,-0.4" Width="148"/>
+                                    </StackPanel>
+                                    <StackPanel Grid.Row="6" Orientation="Horizontal">
+                                        <TextBlock Text="{x:Static Resx:Resources.price}" Margin="0,7,0,0" Width="100"/>
+
+
+
+                                        <StackPanel Orientation="Horizontal" Margin="23,0,0,-0.2" Width="152">
+                                            <TextBox Name="Tbx_Price"
+                     Text="{Binding price}" PreviewTextInput="Tbx_Price_PreviewTextInput" Margin="0,0,0,3.8"
+                     FontSize="12" HorizontalAlignment="Right" Width="120"/>
+                                            <iconPacks:PackIconMaterial Kind="CurrencyEur" Foreground="Black" 
+                                            VerticalAlignment="Center" 
+                                            HorizontalAlignment="Center"/>
+                                        </StackPanel>
+
+
+
+                                    </StackPanel>
+                                </Grid>
+                            </StackPanel>
+                        </StackPanel>
+                        <StackPanel VerticalAlignment="Bottom" Height="44" Margin="-400,0,0,0" Orientation="Horizontal">
+                            <Button Style="{StaticResource MaterialDesignRaisedDarkButton}" Width="100" Margin="10,0,40,0"
+                            ToolTip="{x:Static Resx:Resources.tooltip_add}" HorizontalAlignment="Right" Click="Button_AddCar" Content="{x:Static Resx:Resources.btn_addvehicle}"/>
+
+
+
+                            <Button Style="{StaticResource MaterialDesignRaisedDarkButton}" Width="100" Margin="10,0,40,0"
+                            ToolTip="{x:Static Resx:Resources.tooltip_replace}" HorizontalAlignment="Right" Click="Button_ReplaceTire" Content="{x:Static Resx:Resources.btn_replace}"/>
+                            <Button Name="Btn_checkout" Click="Btn_checkout_Click" Style="{StaticResource MaterialDesignRaisedDarkButton}" Width="100"
+                            ToolTip="{x:Static Resx:Resources.tooltip_delete    }" Content="{x:Static Resx:Resources.btn_checkout}"/>
+                        </StackPanel>
+
+
+
+
+                    </StackPanel>
+                </StackPanel>
+            </Grid>
+        </materialDesign:TransitioningContent>
+    </Grid>
+</UserControl>
